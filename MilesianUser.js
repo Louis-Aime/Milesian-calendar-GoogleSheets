@@ -5,6 +5,7 @@ Functions are aimed at extending Date & Time functions, and use similar paramete
 Versions GAS: 
   M2018-02-19: first release
   M2018-06-12: update comments and adapt to MilesianPrimitives
+  M2019-01-15: solar intercalation rule is as of Gregorian
 functions:
   MILESIAN_IS_LONG_YEAR
   MILESIAN_DATE
@@ -57,7 +58,7 @@ function MILESIAN_IS_LONG_YEAR(Year) {
 //Is year Year a 366 days year, i.e. a year just before a bissextile year following the Milesian rule.
 if (Year !== Math.round(Year) || Year < LowYear || Year > HighYear) throw "MILESIAN_IS_LONG_YEAR: Invalid argument: " + Year; //Check that we have an integer numeric value
   Year += 1;
-  return (positiveModulo (Year,4) == 0 && (positiveModulo (Year,100) !== 0 || (positiveModulo(Year, 400) == 0 && positiveModulo(Year+800, 3200) !== 0)));
+  return (positiveModulo (Year,4) == 0 && (positiveModulo (Year,100) !== 0 || positiveModulo(Year, 400) == 0 ));
 } 
 
 //#Part 3: Compute date (local time) from milesian parameters

@@ -5,6 +5,7 @@ using the CBCCE, since a Date object uses Posix conventions here.
 Versions: 
   M2018-02-21 : adapt to GAS
   M2018-06-12 : Change getMilesianUTCDate to getUTCMilesianDate (compatibility with JS version)
+  M2019-01-15 : Solar intercalation rule is same as Gregorian
 Package CBCCE is used. 
 Milesian month names are not used. Here the only output uses the simple international code.
  getMilesianDate : the day date as a three elements object: .year, .month, .date; .month is 0 to 11. Conversion is in local time.
@@ -14,7 +15,7 @@ Milesian month names are not used. Here the only output uses the simple internat
  toIntlMilesianDateString : return a string with the date elements in Milesian: (day) (month)"m" (year), month 1 to 12.
  toUTCIntlMilesianDateString : same as above, in UTC time zone.
 */
-/* Copyright Miletus 2016-2018 - Louis A. de FouquiÃ¨res
+/* Copyright Miletus 2016-2019 - Louis A. de Fouquières
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including
@@ -42,9 +43,8 @@ Inquiries: www.calendriermilesien.org
 	CBCCE.js
 */
 var Milesian_time_params = { // To be used with a Unix timestamp in ms. Decompose into Milesian years, months, date, hours, minutes, seconds, ms
-	timeepoch : -188395804800000, // Unix timestamp of 1 1m -4000 00h00 UTC in ms
+	timeepoch : -62168083200000, // Unix timestamp of 1 1m 0 00h00 UTC in ms
 	coeff : [ 
-	  {cyclelength : 100982160000000, ceiling : Infinity, subCycleShift : 0, multiplier : 3200, target : "year"},
 	  {cyclelength : 12622780800000, ceiling : Infinity, subCycleShift : 0, multiplier : 400, target : "year"},
 	  {cyclelength : 3155673600000, ceiling :  3, subCycleShift : 0, multiplier : 100, target : "year"},
 	  {cyclelength : 126230400000, ceiling : Infinity, subCycleShift : 0, multiplier : 4, target : "year"},
@@ -58,7 +58,7 @@ var Milesian_time_params = { // To be used with a Unix timestamp in ms. Decompos
 	  {cyclelength : 1, ceiling : Infinity, subCycleShift : 0, multiplier : 1, target : "milliseconds"}
 	],
 	canvas : [ 
-		{name : "year", init : -4000},
+		{name : "year", init : 0},
 		{name : "month", init : 0},
 		{name : "date", init : 1},
 		{name : "hours", init : 0},
