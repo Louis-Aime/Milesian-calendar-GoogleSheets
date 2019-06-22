@@ -88,20 +88,20 @@ function MILESIAN_DATE(Year, Month, DayInMonth) {
 		throw "MILESIAN_DATE: Out-of-range argument: " + Year +" "+ Month +" "+ DayInMonth;
 }
 /**
-* the last day at 00:00 UTC before a Milesian year. Usefull for doomsday and epact. 
+* the last day at 7:30 UTC before a Milesian year. Usefull for doomsday and epact. 
 * @param {integer} the year in question; may be positive, 0 or negative.
 * @return {boolean} date of the day before, as a Google Sheets count.
 */
 function MILESIAN_YEAR_BASE(Year) { 
 	if (Year !== Math.round(Year) || Year < LowYear || Year > HighYear) throw "MILESIAN_YEAR_BASE: Invalid argument: " + Year;
 	var theDate = setUTCDateFromMilesian (Year, 0, 0) ; 
-	return MSCount_(theDate);
+	return MSCount_(theDate)+ 0.3125;
 }
 
 //#Part 4: Extract Milesian elements from Date element, using getMilesianDate (theDate) that gives local time.
 /**
 * The Milesian year (common era, relative notation) for a given date.
-* @param {date} the date being converted.
+* @param {date} the date being converted.+ 0.3125
 * @return {integer} the Milesian year, may be positive, 0 or negative.
 */
 function MILESIAN_YEAR(TheDate) {
